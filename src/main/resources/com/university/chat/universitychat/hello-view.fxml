@@ -1,16 +1,149 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.university.chat.universitychat.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top,#B61825,#901825);" stylesheets="@../../../../bootstrap3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" prefHeight="400.0" prefWidth="268.0">
+               <children>
+                  <ImageView fitHeight="143.0" fitWidth="183.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@360_F_467428567_RQlUCVXnyMVCta8xyIyoCTHOCWANg41j.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="University hub">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="24.0" />
+                     </font>
+                     <textFill>
+                        <LinearGradient endX="1.0" endY="0.3222748815165877" startX="1.0" startY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="1.0" green="0.8465277552604675" blue="0.4583333432674408" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006711409395973154">
+                                 <color>
+                                    <Color red="0.8815789222717285" green="0.6464912295341492" blue="0.3591617941856384" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="0.07870370149612427" blue="0.07870370149612427" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+               </children>
+            </VBox>
+            <Pane layoutY="380.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="20.0" prefWidth="268.0">
+               <children>
+                  <Label prefHeight="19.0" prefWidth="268.0" text=" Created by Beley Vitalii  " textAlignment="RIGHT" textFill="#a1a1a1">
+                     <font>
+                        <Font name="Segoe UI Semibold" size="10.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="331.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" layoutX="2.0" prefHeight="400.0" prefWidth="332.0">
+               <children>
+                  <HBox alignment="TOP_CENTER" prefHeight="153.0" prefWidth="332.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="87.0" prefWidth="294.0" text="Login" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Algerian" size="36.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="331.0" prefWidth="332.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="58.0" prefWidth="332.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
+                                 <font>
+                                    <Font name="Bookman Old Style" size="10.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER" prefHeight="33.0" prefWidth="228.0" spacing="5.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="33.0" prefWidth="32.0">
+                                       <children>
+                                          <SVGPath content="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z" fill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <TextField prefHeight="26.0" prefWidth="192.0" promptText="Username">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="14.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="52.0" prefWidth="332.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
+                                 <font>
+                                    <Font name="Bookman Old Style" size="10.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER" prefHeight="33.0" prefWidth="300.0" spacing="5.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="33.0" prefWidth="32.0">
+                                       <children>
+                                          <SVGPath content="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" fill="WHITE" />
+                                       </children>
+                                    </HBox>
+                                    <PasswordField prefHeight="26.0" prefWidth="192.0" promptText="Password">
+                                       <font>
+                                          <Font name="Segoe UI Semibold" size="14.0" />
+                                       </font>
+                                    </PasswordField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="133.0" prefWidth="332.0" spacing="40.0">
+                           <children>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Black" size="18.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
