@@ -7,6 +7,8 @@ module com.university.chat.universitychat {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
+    requires org.postgresql.jdbc;
 
     opens com.university.chat.universitychat to javafx.fxml;
     exports com.university.chat.universitychat;
