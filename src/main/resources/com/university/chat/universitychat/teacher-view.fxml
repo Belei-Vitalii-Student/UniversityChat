@@ -1,51 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../../bootstrap3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
  <top>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
        <children>
-          <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="598.0">
-             <children>
-                <ToolBar prefHeight="35.0" prefWidth="599.0">
-                   <items>
-                      <HBox alignment="CENTER" spacing="5.0">
-                         <children>
-                            <Label prefHeight="16.0" prefWidth="116.0" text="Teacher View" textFill="#367dff">
-                               <font>
-                                  <Font name="Bookman Old Style Bold" size="14.0" />
-                               </font>
-                            </Label>
-                            <Button mnemonicParsing="false" text="News" />
-                            <Button mnemonicParsing="false" text="Schedule" />
-                            <Button mnemonicParsing="false" text="Meeting" />
-                         </children>
-                      </HBox>
-                      <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="245.0">
-                         <children>
-                            <MenuButton mnemonicParsing="false" text="Vitalii">
-                               <items>
-                                  <MenuItem mnemonicParsing="false" text="Change username" />
-                                  <MenuItem mnemonicParsing="false" text="Change password" />
-                                  <MenuItem mnemonicParsing="false" style="-fx-text-fill: red;" text="Log out" />
-                               </items>
-                            </MenuButton>
-                         </children>
-                      </HBox>
-                   </items>
-                </ToolBar>
-             </children>
-          </HBox>
+          <ToolBar prefHeight="35.0" prefWidth="599.0">
+             <items>
+                <HBox alignment="CENTER" spacing="5.0">
+                   <children>
+                      <Label prefHeight="16.0" prefWidth="116.0" text="Teacher View" textFill="#367dff">
+                         <font>
+                            <Font name="Bookman Old Style Bold" size="14.0" />
+                         </font>
+                      </Label>
+                      <Button mnemonicParsing="false" text="News" />
+                      <Button mnemonicParsing="false" text="Schedule" />
+                      <Button mnemonicParsing="false" text="Meeting" />
+                   </children>
+                </HBox>
+                <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="245.0">
+                   <children>
+                      <MenuButton mnemonicParsing="false" text="Vitalii">
+                         <items>
+                            <MenuItem mnemonicParsing="false" text="Change username" />
+                            <MenuItem mnemonicParsing="false" text="Change password" />
+                            <MenuItem mnemonicParsing="false" style="-fx-text-fill: red;" text="Log out" />
+                         </items>
+                      </MenuButton>
+                   </children>
+                </HBox>
+             </items>
+          </ToolBar>
        </children>
     </AnchorPane>
  </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="356.0" prefWidth="600.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="598.0">
+                     <children>
+                        <GridPane alignment="TOP_CENTER" hgap="15.0" prefHeight="421.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top,#B61825,#901825);" vgap="15.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 15; -fx-background-color: #fff;">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="288.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="183.0" text="Author">
+                                             <font>
+                                                <Font name="Britannic Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="84.0" text="28.11.2023" textAlignment="RIGHT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <TextFlow prefHeight="95.0" prefWidth="298.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 15; -fx-background-color: #fff;" GridPane.columnIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="288.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="183.0" text="Author">
+                                             <font>
+                                                <Font name="Britannic Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="84.0" text="28.11.2023" textAlignment="RIGHT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <TextFlow prefHeight="95.0" prefWidth="298.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 15; -fx-background-color: #fff;" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="288.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="183.0" text="Author">
+                                             <font>
+                                                <Font name="Britannic Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="84.0" text="28.11.2023" textAlignment="RIGHT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <TextFlow prefHeight="95.0" prefWidth="298.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-radius: 15; -fx-background-color: #fff;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="34.0" prefWidth="288.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="183.0" text="Author">
+                                             <font>
+                                                <Font name="Britannic Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="84.0" text="28.11.2023" textAlignment="RIGHT" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <TextFlow prefHeight="95.0" prefWidth="298.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" right="10.0" top="20.0" />
+                           </padding>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>

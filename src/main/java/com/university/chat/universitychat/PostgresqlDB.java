@@ -7,6 +7,7 @@ import java.util.List;
 
 public class PostgresqlDB {
     private Connection connection;
+    private Logger logger;
 
     PostgresqlDB() throws SQLException {
         DriverManager.registerDriver(new org.postgresql.Driver());
