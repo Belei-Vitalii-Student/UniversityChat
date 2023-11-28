@@ -1,5 +1,10 @@
 package com.university.chat.universitychat;
 
+import com.university.chat.universitychat.service.MeetingService;
+import com.university.chat.universitychat.service.NewsService;
+import com.university.chat.universitychat.service.ScheduleService;
+import com.university.chat.universitychat.service.UserService;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +13,13 @@ import java.util.List;
 public class PostgresqlDB {
     private Connection connection;
     private Logger logger;
+    private Integer actualUserId;
+    private UserService userService;
+    private NewsService newsService;
+    private ScheduleService scheduleService;
+    private MeetingService meetingService;
 
-    PostgresqlDB() throws SQLException {
+    PostgresqlDB() throws Exception {
         DriverManager.registerDriver(new org.postgresql.Driver());
 
         String url = "jdbc:postgresql://localhost:5432/university_hub";
@@ -18,130 +28,42 @@ public class PostgresqlDB {
 
         this.connection = DriverManager.getConnection(url, username, password);
         this.logger = new Logger(this.connection);
+        this.userService = new UserService(connection, logger);
+        this.newsService = new NewsService(connection, logger);
+        this.scheduleService = new ScheduleService(connection, logger);
+        this.meetingService = new MeetingService(connection, logger);
+    }
 
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'users');");
-
-        boolean tableExists = rs.next() && rs.getBoolean(1);
-
-        if(!tableExists) {
-            createUserTable();
+    public boolean validateData(String username, String password) throws Exception {
+        ResultSet user = userService.findUserByUsername(username);
+        if(!user.next()) {
+            throw new Exception("User with this data doesn`t exists");
         }
-        statement.close();
+
+        System.out.println(username + " | " + password);
+
+        Integer id = user.getInt("ID");
+        String userPassword = user.getString("PASSWORD");
+        if(!password.equals(userPassword))
+            throw new Exception("User with this data doesn`t exists");
+
+        this.actualUserId = id;
+
+        user.close();
+        return true;
     }
 
-    private void createUserTable() throws SQLException {
-        Statement statement = connection.createStatement();
-        String sql = "CREATE TABLE users (ID SERIAL PRIMARY KEY, name VARCHAR(255), age INT, favorite_color VARCHAR(255))";
-        statement.executeUpdate(sql);
-        statement.close();
+    public Integer getActualUserId() {
+        return this.actualUserId;
     }
 
-    private boolean userExists(Integer id) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT 1 FROM users WHERE id = " + id + ";");
-        boolean userExists = rs.next();
-        statement.close();
-
-        return userExists;
+    public ResultSet selectAllNews() throws SQLException {
+        return newsService.selectAllNews();
     }
 
-//    public void addUser(String name, Integer age, String favoriteColor) throws SQLException {
-//
-//        String sql = "INSERT INTO users (name, age, favorite_color) VALUES (?, ?, ?);";
-////        String sql = "INSERT INTO users (name, age, favorite_color) VALUES ('" + name + "'," + age + ",'" + favoriteColor + "');";
-//        PreparedStatement prepare = connection.prepareStatement(sql);
-//
-//        prepare.setString(1, name);
-//        prepare.setInt(2, age);
-//        prepare.setString(3, favoriteColor);
-//
-//        prepare.executeUpdate();
-//        prepare.close();
-//
-//        logger.log("ADD", "Added new user [" + name + "]");
-//    }
-//
-//    public void changeUserName(Integer id, String name) throws Exception {
-//        if(!userExists(id)) {
-//            throw new Exception("User with id-" + id + " doesn`t found.");
-//        }
-//
-//        String sql = "UPDATE users SET name = ? WHERE id = ?;";
-//        PreparedStatement prepare = connection.prepareStatement(sql);
-//
-//        prepare.setString(1, name);
-//        prepare.setInt(2, id);
-//
-//        prepare.executeUpdate();
-//        prepare.close();
-//
-//        logger.log("UPDATE", "Updated name for user [" + id + "] to [" + name + "]");
-//    }
-//
-//    public void changeUserAge(Integer id, Integer age) throws Exception {
-//        if(!userExists(id)) {
-//            throw new Exception("User with id-" + id + " doesn`t found.");
-//        }
-//
-//        String sql = "UPDATE users SET age = ? WHERE id = ?;";
-//        PreparedStatement prepare = connection.prepareStatement(sql);
-//
-//        prepare.setInt(1, age);
-//        prepare.setInt(2, id);
-//
-//        prepare.executeUpdate();
-//        prepare.close();
-//
-//        logger.log("UPDATE", "Updated age for user [" + id + "] to [" + age + "]");
-//    }
-//
-//    public void changeUserFavoriteColor(Integer id, String favoriteColor) throws Exception {
-//        if(!userExists(id)) {
-//            throw new Exception("User with id-" + id + " doesn`t found.");
-//        }
-//
-//        String sql = "UPDATE users SET favorite_color = ? WHERE id = ?;";
-//        PreparedStatement prepare = connection.prepareStatement(sql);
-//
-//        prepare.setString(1, favoriteColor);
-//        prepare.setInt(2, id);
-//
-//        prepare.executeUpdate();
-//        prepare.close();
-//
-//        logger.log("UPDATE", "Updated favorite color for user [" + id + "] to [" + favoriteColor + "]");
-//    }
-//
-//    public void deleteUser(Integer id) throws Exception {
-//        if(!userExists(id)) {
-//            throw new Exception("User with id-" + id + " doesn`t found.");
-//        }
-//
-//        String sql = "DELETE FROM users WHERE id = ?;";
-//        PreparedStatement prepare = connection.prepareStatement(sql);
-//
-//        prepare.setInt(1, id);
-//
-//        prepare.executeUpdate();
-//        prepare.close();
-//
-//        logger.log("DELETE", "Deleted user [" + id + "]");
-//    }
-//
-//    public List<User> getAllUsers() throws SQLException {
-//        List<User> users = new ArrayList();
-//
-//        Statement statement = connection.createStatement();
-//        String sql = "SELECT * FROM users";
-//        ResultSet set = statement.executeQuery(sql);
-//        while (set.next()) {
-//            users.add(new User(set.getInt("id"), set.getString("name"), set.getInt("age"), set.getString("favorite_color")));
-//        }
-//        statement.close();
-//
-//        return users;
-//    }
+    public ResultSet findUserById(Integer id) throws SQLException {
+        return userService.findUserById(id);
+    }
 
     public List<Log> getLogs() throws SQLException {
         List<Log> logs = new ArrayList();

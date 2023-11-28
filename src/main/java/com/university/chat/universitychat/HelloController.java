@@ -3,18 +3,29 @@ package com.university.chat.universitychat;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javax.swing.Timer;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
     @FXML
     Button log_in_btn;
     @FXML
@@ -25,6 +36,18 @@ public class HelloController {
     Button meeting_btn;
     @FXML
     Button new_meet_btn;
+
+    @FXML
+    TextField username_field;
+    @FXML
+    PasswordField password_field;
+    @FXML
+    Label username_alert_msg;
+    @FXML
+    Label password_alert_msg;
+    @FXML
+    Text login_alert_msg;
+
     @FXML
     GridPane news_view;
     @FXML
@@ -37,8 +60,66 @@ public class HelloController {
     @FXML
     MenuButton menu_options;
     private Stage stage;
+    private PostgresqlDB postgresqlDB = new PostgresqlDB();
+
+    public HelloController() throws Exception {
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            if(news_view == null) return;
+            renderNews();
+        } catch (Exception e) {
+            return;
+        }
+    }
+
     @FXML
     protected void login(ActionEvent event) throws IOException {
+        String usernameText = username_field.getText();
+        String passwordText = password_field.getText();
+
+        if (usernameText.length() == 0) {
+            username_alert_msg.setVisible(true);
+            Timer timer = new Timer(2000, e -> {
+                username_alert_msg.setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+
+            return;
+        }
+
+        if (passwordText.length() == 0) {
+            password_alert_msg.setVisible(true);
+            Timer timer = new Timer(2000, e -> {
+                password_alert_msg.setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+
+            return;
+        }
+
+        try {
+            if (postgresqlDB.validateData(usernameText, passwordText)) {
+                renderTeacherPage(event);
+            }
+        } catch (Exception e) {
+            login_alert_msg.setText(e.getMessage());
+            login_alert_msg.setVisible(true);
+            Timer timer = new Timer(3000, err -> {
+                login_alert_msg.setText("Log in");
+                login_alert_msg.setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+            return;
+        }
+    }
+
+    private void renderTeacherPage(ActionEvent event) throws IOException {
         Parent teacherView = FXMLLoader.load(getClass().getResource("teacher-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(teacherView);
@@ -47,7 +128,7 @@ public class HelloController {
     }
 
     @FXML
-    protected void logout(ActionEvent event) throws IOException {
+    protected void logout(ActionEvent event) throws IOException, SQLException {
         Parent teacherView = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) menu_options.getScene().getWindow();
         Scene scene = new Scene(teacherView);
@@ -99,5 +180,61 @@ public class HelloController {
         schedule_view.setVisible(false);
         news_view.setVisible(false);
         meeting_view.setVisible(true);
+    }
+
+    protected void renderNews() throws SQLException {
+        System.out.println("RENDER NEWS");
+
+        ResultSet news = postgresqlDB.selectAllNews();
+
+        Integer row = 0, column = 0;
+
+        while (news.next()) {
+            Integer id = news.getInt("ID");
+            System.out.println(id);
+            String author = news.getString("USERNAME");
+            System.out.println(author);
+//            Timestamp date = news.getTimestamp("DATE");
+//            System.out.println(date);
+            Date date = new Date();
+            String description = news.getString("DESCRIPTION");
+            System.out.println(description);
+
+            System.out.println(id + " | " + author + " | " + date + " | " + description);
+
+            VBox vBox = new VBox();
+            vBox.setPrefWidth(200);
+            vBox.setPrefHeight(100);
+
+            HBox hBox = new HBox();
+            hBox.setPrefHeight(40);
+
+            HBox hBox2 = new HBox();
+
+            Text descriptionFlow = new Text();
+            descriptionFlow.setText(description);
+
+            hBox2.getChildren().add(descriptionFlow);
+
+            Label authorLabel = new Label();
+            authorLabel.setText(author);
+
+            Label dateLabel = new Label();
+            dateLabel.setText(date.toString());
+
+            hBox.getChildren().add(authorLabel);
+            hBox.getChildren().add(dateLabel);
+
+            vBox.getChildren().add(hBox);
+            vBox.getChildren().add(hBox2);
+
+            news_view.add(vBox, column, row);
+
+            if(column >= 1) {
+                row++;
+            } else {
+                column++;
+            }
+        }
     }
 }

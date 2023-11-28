@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -16,6 +17,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top,#B61825,#901825);" stylesheets="@../../../../bootstrap3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.university.chat.universitychat.HelloController">
    <left>
@@ -86,7 +88,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="58.0" prefWidth="332.0">
                            <children>
-                              <Label prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
+                              <Label fx:id="username_alert_msg" prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
                                  <font>
                                     <Font name="Bookman Old Style" size="10.0" />
                                  </font>
@@ -98,7 +100,7 @@
                                           <SVGPath content="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z" fill="WHITE" />
                                        </children>
                                     </HBox>
-                                    <TextField prefHeight="26.0" prefWidth="192.0" promptText="Username">
+                                    <TextField fx:id="username_field" prefHeight="26.0" prefWidth="192.0" promptText="Username">
                                        <font>
                                           <Font name="Segoe UI Semibold" size="14.0" />
                                        </font>
@@ -109,7 +111,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="52.0" prefWidth="332.0">
                            <children>
-                              <Label prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
+                              <Label fx:id="password_alert_msg" prefHeight="18.0" prefWidth="227.0" text="Please fill this field" textFill="WHITE" visible="false">
                                  <font>
                                     <Font name="Bookman Old Style" size="10.0" />
                                  </font>
@@ -121,7 +123,7 @@
                                           <SVGPath content="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" fill="WHITE" />
                                        </children>
                                     </HBox>
-                                    <PasswordField prefHeight="26.0" prefWidth="192.0" promptText="Password">
+                                    <PasswordField fx:id="password_field" prefHeight="26.0" prefWidth="192.0" promptText="Password">
                                        <font>
                                           <Font name="Segoe UI Semibold" size="14.0" />
                                        </font>
@@ -130,14 +132,25 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER" prefHeight="133.0" prefWidth="332.0" spacing="40.0">
+                        <VBox alignment="TOP_CENTER" prefHeight="133.0" prefWidth="332.0" spacing="20.0">
                            <children>
+                              <Text fx:id="login_alert_msg" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" visible="false" wrappingWidth="326.9609375">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Bookman Old Style" size="12.0" />
+                                 </font>
+                              </Text>
                               <Button fx:id="log_in_btn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="43.0" prefWidth="99.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Segoe UI Black" size="18.0" />
                                  </font>
                               </Button>
                            </children>
+                           <opaqueInsets>
+                              <Insets top="20.0" />
+                           </opaqueInsets>
                         </VBox>
                      </children>
                   </VBox>
