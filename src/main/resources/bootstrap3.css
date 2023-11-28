@@ -971,3 +971,11 @@ VBox > .split-menu-button.last > .arrow-button {
 .slider:vertical .track {
     -fx-pref-width: 5;
 }
+
+.scroll-pane{
+    -fx-background-color: transparent !important;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent !important;
+}

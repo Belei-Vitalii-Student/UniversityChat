@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top,#B61825,#901825);" stylesheets="@../../../../bootstrap3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to top,#B61825,#901825);" stylesheets="@../../../../bootstrap3.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.university.chat.universitychat.HelloController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
          <children>
@@ -132,7 +132,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="133.0" prefWidth="332.0" spacing="40.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="99.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
+                              <Button fx:id="log_in_btn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#login" prefHeight="43.0" prefWidth="99.0" text="Log in" textAlignment="CENTER" textFill="WHITE">
                                  <font>
                                     <Font name="Segoe UI Black" size="18.0" />
                                  </font>
