@@ -10,6 +10,7 @@ module com.university.chat.universitychat {
     requires java.sql;
     requires org.postgresql.jdbc;
     requires java.desktop;
+    requires org.xerial.sqlitejdbc;
 
     opens com.university.chat.universitychat to javafx.fxml;
     exports com.university.chat.universitychat;

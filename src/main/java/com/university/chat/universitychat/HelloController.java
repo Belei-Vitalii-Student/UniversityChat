@@ -36,6 +36,10 @@ public class HelloController implements Initializable {
     Button meeting_btn;
     @FXML
     Button new_meet_btn;
+    @FXML
+    Button chat_btn;
+    @FXML
+    Button notes_btn;
 
     @FXML
     TextField username_field;
@@ -56,6 +60,10 @@ public class HelloController implements Initializable {
     VBox meeting_view;
     @FXML
     Pane new_meet_form;
+    @FXML
+    VBox chat_view;
+    @FXML
+    Pane notes_view;
 
     @FXML
     MenuButton menu_options;
@@ -68,8 +76,12 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            if(news_view == null) return;
+            if(news_view == null) {
+                menu_options.setText("Student");
+                return;
+            }
             renderNews();
+            menu_options.setText("Teacher");
         } catch (Exception e) {
             return;
         }
@@ -103,7 +115,10 @@ public class HelloController implements Initializable {
         }
 
         try {
-            if (postgresqlDB.validateData(usernameText, passwordText)) {
+            Integer role = postgresqlDB.validateData(usernameText, passwordText);
+            if (role != null && role == 0) {
+                renderStudentPage(event);
+            } else if (role != null && role == 1) {
                 renderTeacherPage(event);
             }
         } catch (Exception e) {
@@ -121,6 +136,14 @@ public class HelloController implements Initializable {
 
     private void renderTeacherPage(ActionEvent event) throws IOException {
         Parent teacherView = FXMLLoader.load(getClass().getResource("teacher-view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(teacherView);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void renderStudentPage(ActionEvent event) throws IOException {
+        Parent teacherView = FXMLLoader.load(getClass().getResource("student-view.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(teacherView);
         stage.setScene(scene);
@@ -150,6 +173,13 @@ public class HelloController implements Initializable {
                 break;
             case "meeting":
                 selectMeetingView();
+                break;
+            case "chat":
+                selectChatView();
+                break;
+            case "notes":
+                selectNotesView();
+                break;
         }
     }
 
@@ -180,6 +210,16 @@ public class HelloController implements Initializable {
         schedule_view.setVisible(false);
         news_view.setVisible(false);
         meeting_view.setVisible(true);
+    }
+
+    private void selectChatView() {
+        chat_view.setVisible(true);
+        notes_view.setVisible(false);
+    }
+
+    private void selectNotesView() {
+        chat_view.setVisible(false);
+        notes_view.setVisible(true);
     }
 
     protected void renderNews() throws SQLException {

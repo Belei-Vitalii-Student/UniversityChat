@@ -20,11 +20,19 @@ public class PostgresqlDB {
     private MeetingService meetingService;
 
     PostgresqlDB() throws Exception {
-        DriverManager.registerDriver(new org.postgresql.Driver());
+//        DriverManager.registerDriver(new org.postgresql.Driver());
+//
+//        String url = "jdbc:postgresql://localhost:5432/university_hub";
+//        String username = "postgres";
+//        String password = "admin";
 
-        String url = "jdbc:postgresql://localhost:5432/university_hub";
-        String username = "postgres";
-        String password = "admin";
+
+        DriverManager.deregisterDriver(new org.postgresql.Driver());
+        DriverManager.registerDriver(new org.sqlite.JDBC());
+        String url = "jdbc:sqlite:university_hub.db"; // Change 'university_hub' to the desired SQLite database filename
+
+        String username = "";
+        String password = "";
 
         this.connection = DriverManager.getConnection(url, username, password);
         this.logger = new Logger(this.connection);
@@ -32,9 +40,29 @@ public class PostgresqlDB {
         this.newsService = new NewsService(connection, logger);
         this.scheduleService = new ScheduleService(connection, logger);
         this.meetingService = new MeetingService(connection, logger);
+
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE tbl_name = 'roles');");
+
+        boolean tableExists = rs.next() && rs.getBoolean(1);
+
+        if(!tableExists) {
+            createRolesTable();
+        }
+        statement.close();
     }
 
-    public boolean validateData(String username, String password) throws Exception {
+    private void createRolesTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "CREATE TABLE roles (ID SERIAL PRIMARY KEY, name VARCHAR(100))";
+        statement.executeUpdate(sql);
+        sql = "INSERT INTO roles (name) VALUES ('Student'); INSERT INTO roles (name) VALUES ('Teacher'); INSERT INTO roles (name) VALUES ('Admin')";
+        statement.executeUpdate(sql);
+        this.logger.log("CREATE", "Roles table created");
+        statement.close();
+    }
+
+    public Integer validateData(String username, String password) throws Exception {
         ResultSet user = userService.findUserByUsername(username);
         if(!user.next()) {
             throw new Exception("User with this data doesn`t exists");
@@ -44,13 +72,15 @@ public class PostgresqlDB {
 
         Integer id = user.getInt("ID");
         String userPassword = user.getString("PASSWORD");
+        Integer role = user.getInt("ROLE");
         if(!password.equals(userPassword))
             throw new Exception("User with this data doesn`t exists");
 
         this.actualUserId = id;
 
         user.close();
-        return true;
+
+        return role;
     }
 
     public Integer getActualUserId() {

@@ -13,7 +13,8 @@ public class UserService {
         this.logger = logger;
 
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'users');");
+//        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'users');");
+        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE tbl_name = 'users');");
 
         boolean tableExists = rs.next() && rs.getBoolean(1);
 
@@ -27,14 +28,6 @@ public class UserService {
         Statement statement = connection.createStatement();
         String sql = "SELECT * FROM users";
         ResultSet data = statement.executeQuery(sql);
-        while (data.next()) {
-            Integer id = data.getInt("ID");
-            String username = data.getString("USERNAME");
-            String password = data.getString("PASSWORD");
-            Integer role = data.getInt("ROLE");
-            System.out.println(id + " | " + username + " | " + password + " | " + role);
-        }
-        statement.close();
         return data;
     }
 

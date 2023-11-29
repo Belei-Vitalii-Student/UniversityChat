@@ -13,7 +13,8 @@ public class ScheduleService {
         this.logger = logger;
 
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'schedule');");
+//        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'schedule');");
+        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE tbl_name = 'schedule');");
 
         boolean tableExists = rs.next() && rs.getBoolean(1);
 

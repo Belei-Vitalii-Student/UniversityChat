@@ -13,7 +13,8 @@ public class NewsService {
         this.logger = logger;
 
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'news');");
+//        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'news');");
+        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE tbl_name = 'news');");
 
         boolean tableExists = rs.next() && rs.getBoolean(1);
 
@@ -21,6 +22,7 @@ public class NewsService {
             createNewsTable();
         }
         statement.close();
+
     }
 
     public ResultSet selectAllNews() throws SQLException {

@@ -24,6 +24,10 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    // USERS:
+    // Student pass 0
+    // Teacher pass 1
+
     public static void main(String[] args) {
         launch();
     }

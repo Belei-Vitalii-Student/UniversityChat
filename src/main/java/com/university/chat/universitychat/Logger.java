@@ -13,7 +13,8 @@ public class Logger {
         this.connection = connection;
 
         Statement statement = connection.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = '" + this.tableName + "');");
+//        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = '" + this.tableName + "');");
+        ResultSet rs = statement.executeQuery("SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE tbl_name = '" + this.tableName + "');");
         boolean tableExists = rs.next() && rs.getBoolean(1);
 
         if(!tableExists) {
